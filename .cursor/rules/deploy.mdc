@@ -1,0 +1,22 @@
+---
+description: Публикация обновлений дашборда на GitHub Pages
+globs: roi_dashboard.html
+alwaysApply: false
+---
+
+# Деплой на GitHub Pages
+
+После каждого изменения `roi_dashboard.html` нужно скопировать файл в `index.html` и запушить.
+
+## Команды для деплоя
+
+```bash
+cp roi_dashboard.html index.html
+git add index.html
+git commit -m "Update dashboard"
+git push
+```
+
+- Редактировать всегда `roi_dashboard.html`, `index.html` — только копия для хостинга
+- Сайт обновляется через 1–2 минуты после пуша
+- URL: https://aim-samodelkin.github.io/github_pages/
