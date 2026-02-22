@@ -20,8 +20,8 @@
   --purple: #8b5cf6;
   --yellow: #eab308;
   --text: #f1f5f9;
-  --muted: #94a3b8;
-  --dim: #475569;
+  --muted: #cbd5e1;
+  --dim: #94a3b8;
 }
 * { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; }
@@ -94,7 +94,7 @@ header {
 .hero-stat:nth-child(1)::before { background:linear-gradient(90deg,var(--blue),transparent); }
 .hero-stat:nth-child(2)::before { background:linear-gradient(90deg,var(--green),transparent); }
 .hero-stat:nth-child(3)::before { background:linear-gradient(90deg,var(--orange),transparent); }
-.hero-label { font-size:12px; font-weight:500; color:var(--muted); text-transform:uppercase; letter-spacing:0.8px; }
+.hero-label { font-size:12px; font-weight:500; color:var(--muted); text-transform:uppercase; letter-spacing:0.8px; display:flex; align-items:center; }
 .hero-value { font-size:42px; font-weight:800; letter-spacing:-2px; margin:8px 0 4px; line-height:1; }
 .hero-sub { font-size:13px; color:var(--dim); }
 .hero-value.blue { background:linear-gradient(135deg,#60a5fa,#06b6d4); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
@@ -123,7 +123,7 @@ header {
   transition:border-color 0.3s, transform 0.2s;
 }
 .card:hover { border-color:rgba(99,179,237,0.25); transform:translateY(-1px); }
-.card-title { font-size:13px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:16px; }
+.card-title { font-size:13px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:16px; display:flex; align-items:center; }
 
 /* ── GRID LAYOUTS ── */
 .grid-4 { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:24px; }
@@ -228,7 +228,7 @@ header {
 .insight.i2::before { background:linear-gradient(90deg,var(--green),transparent); }
 .insight.i3::before { background:linear-gradient(90deg,var(--orange),transparent); }
 .insight-icon { font-size:28px; margin-bottom:10px; }
-.insight-title { font-size:14px; font-weight:700; margin-bottom:6px; }
+.insight-title { font-size:14px; font-weight:700; margin-bottom:6px; display:flex; align-items:center; }
 .insight-text { font-size:12px; color:var(--muted); line-height:1.6; }
 
 /* ── FOOTER ── */
@@ -264,6 +264,18 @@ footer {
   margin-top:16px;
 }
 .callout strong { color:var(--text); }
+
+/* ── CARD TOOLTIPS ── */
+.tt {
+  display:inline-flex; align-items:center; justify-content:center;
+  width:15px; height:15px; border-radius:50%;
+  background:rgba(99,179,237,0.1); border:1px solid rgba(99,179,237,0.2);
+  color:#cbd5e1; font-size:9px; font-weight:700; font-style:normal;
+  cursor:help; margin-left:6px; flex-shrink:0;
+  transition:background 0.2s, color 0.2s, border-color 0.2s;
+  user-select:none; line-height:1;
+}
+.tt:hover { background:rgba(99,179,237,0.22); color:#e2e8f0; border-color:rgba(99,179,237,0.38); }
 
 /* number-animate placeholder */
 .num { display:inline-block; }
@@ -308,17 +320,17 @@ footer {
 
   <div class="hero-text fade-in">
     <div class="hero-stat">
-      <div class="hero-label">Чистая выгода в год</div>
+      <div class="hero-label">Чистая выгода в год <span class="tt" data-tip="Сумма после вычета OPEX и амортизации CAPEX. Состав: трудозатраты +8,4 млн + защита маржи от ценового лага +325 млн + управленческие решения +80 млн = 413 млн. Консервативный сценарий: 10% некрытого ценового риска.">ⓘ</span></div>
       <div class="hero-value blue num" id="h1">412</div>
       <div class="hero-sub">млн руб. · консервативный сценарий</div>
     </div>
     <div class="hero-stat">
-      <div class="hero-label">Сокращение трудозатрат</div>
+      <div class="hero-label">Сокращение трудозатрат <span class="tt" data-tip="Один цикл актуализации для одного типа изделия: 267,6 → 25,9 чел.-ч активной работы команды. Снижение — за счёт параллельного выполнения и автоматизации рутины. Люди остаются в контуре проверки на всех ключевых шагах.">ⓘ</span></div>
       <div class="hero-value green">−90%</div>
       <div class="hero-sub">с 268 до 26 чел.-ч на один цикл</div>
     </div>
     <div class="hero-stat">
-      <div class="hero-label">Сокращение срока актуализации</div>
+      <div class="hero-label">Сокращение срока актуализации <span class="tt" data-tip="В ручном процессе запросы идут строго последовательно — 125 рабочих дней. ИИ-агент отправляет все запросы в День 0 одновременно, ожидания перекрываются. Жёсткий минимум: КП поставщиков (~12 дн.) + согласование (~10 дн.).">ⓘ</span></div>
       <div class="hero-value orange">6→1,5</div>
       <div class="hero-sub">месяца · параллельный запуск запросов</div>
     </div>
@@ -333,25 +345,25 @@ footer {
 </div>
 <div class="grid-4 fade-in">
   <div class="card">
-    <div class="card-title">ROI первого года</div>
+    <div class="card-title">ROI первого года <span class="tt" data-tip="ROI = (Выгоды − OPEX) ÷ CAPEX = (413 − 6,24) ÷ 28 = 1 454%. Консервативный расчёт: только 10% некрытого ценового риска и одно неудачное управленческое решение в год.">ⓘ</span></div>
     <div class="kpi-value" style="color:#60a5fa"><span class="num" id="k1">0</span>%</div>
     <div class="kpi-label">CAPEX 28 млн + OPEX 6,24 млн/год</div>
     <div class="kpi-delta up">↑ консерв. оценка</div>
   </div>
   <div class="card">
-    <div class="card-title">Экономия трудозатрат/год</div>
+    <div class="card-title">Экономия трудозатрат/год <span class="tt" data-tip="15 типов × 2 дополнительных цикла/год × 303 162 ₽ экономии на цикл. С ИИ компания делает 4 цикла в год за 1,4 млн — против 9,8 млн на ручной процесс.">ⓘ</span></div>
     <div class="kpi-value" style="color:#34d399">8,4 млн ₽</div>
     <div class="kpi-label">15 типов × 2 доп. цикла</div>
     <div class="kpi-delta up">↑ +90% частота расчётов</div>
   </div>
   <div class="card">
-    <div class="card-title">Ценовой риск ТМХ/год</div>
+    <div class="card-title">Ценовой риск ТМХ/год <span class="tt" data-tip="Теоретический максимум: ~184 млрд материалов × 3,75% дрейфа за 4,5 мес. при инфляции 10%/год = ~3,3 млрд по конкретным продуктам. Реально материализуется 10–30% (~345–690 млн): остальное покрыто контрактными оговорками.">ⓘ</span></div>
     <div class="kpi-value" style="color:#fb923c"><span class="num" id="k3">0</span> млрд</div>
     <div class="kpi-label">теор. по ключевым продуктам</div>
     <div class="kpi-delta dn">← лаг 6 мес. + инфл. 10%</div>
   </div>
   <div class="card">
-    <div class="card-title">Стоимость 1 цикла с ИИ</div>
+    <div class="card-title">Стоимость 1 цикла с ИИ <span class="tt" data-tip="Прямые затраты на один полный цикл актуализации для одного типа изделия: 25,9 чел.-ч × средняя ставка = 22 718 ₽. Снижение в 14,3 раза по сравнению с ручным процессом (325 880 ₽).">ⓘ</span></div>
     <div class="kpi-value" style="color:#c084fc">22 718 ₽</div>
     <div class="kpi-label">было 325 880 ₽</div>
     <div class="kpi-delta up">↓ в 14,3× дешевле</div>
@@ -368,7 +380,7 @@ footer {
   <!-- CAPEX -->
   <div class="card">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
-      <div class="card-title" style="margin:0;">CAPEX — единовременные затраты</div>
+      <div class="card-title" style="margin:0;">CAPEX — единовременные затраты <span class="tt" data-tip="Единовременные вложения в разработку и запуск: разработка ИИ-системы (16 млн, 57%), серверная инфраструктура (6 млн, 21%), ОПЭ и тестирование (3 млн), проектирование (2,5 млн), обучение (0,5 млн).">ⓘ</span></div>
       <div style="font-size:22px;font-weight:800;color:#fb923c;">28 000 000 ₽</div>
     </div>
     <div id="capexBars"></div>
@@ -379,7 +391,7 @@ footer {
   <!-- OPEX + Payback -->
   <div class="card">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
-      <div class="card-title" style="margin:0;">OPEX — ежемесячные затраты</div>
+      <div class="card-title" style="margin:0;">OPEX — ежемесячные затраты <span class="tt" data-tip="Постоянные затраты на поддержку системы: техподдержка L2/L3 — 400 тыс./мес + контроль качества данных — 120 тыс./мес = 6,24 млн/год. Менее 2% от консервативной годовой выгоды.">ⓘ</span></div>
       <div style="font-size:22px;font-weight:800;color:#f97316;">520 000 ₽/мес</div>
     </div>
     <div style="margin-bottom:20px;">
@@ -402,7 +414,7 @@ footer {
     </div>
     <!-- Payback timeline -->
     <div style="background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.15);border-radius:12px;padding:16px;margin-top:4px;">
-      <div style="font-size:11px;font-weight:600;color:#34d399;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:12px;">Срок окупаемости CAPEX</div>
+      <div style="font-size:11px;font-weight:600;color:#34d399;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:12px;display:flex;align-items:center;">Срок окупаемости CAPEX <span class="tt" data-tip="Срок возврата CAPEX с момента запуска в эксплуатацию. Ежемесячная чистая выгода = 413 млн ÷ 12 − 0,52 млн OPEX = ~33,9 млн. CAPEX 28 млн ÷ 33,9 млн/мес = 0,83 месяца (~25 рабочих дней).">ⓘ</span></div>
       <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:8px;">
         <div style="font-size:36px;font-weight:800;letter-spacing:-1.5px;color:#34d399;">~25</div>
         <div style="font-size:14px;color:var(--muted);">рабочих дней</div>
@@ -431,7 +443,7 @@ footer {
 <div class="grid-3 fade-in mb24">
   <!-- Chart: doughnut -->
   <div class="card">
-    <div class="card-title">Стоимость одного цикла, ₽</div>
+    <div class="card-title">Стоимость одного цикла, ₽ <span class="tt" data-tip="Полная стоимость одного цикла актуализации себестоимости для одного типа изделия: 15 шагов, с учётом вероятностей применения каждого шага и ставок труда по ролям (экономист, конструктор, снабженец и др.).">ⓘ</span></div>
     <div class="chart-wrap h220">
       <canvas id="donutChart"></canvas>
     </div>
@@ -443,7 +455,7 @@ footer {
 
   <!-- Proc compare bars -->
   <div class="card">
-    <div class="card-title">Параметры сравнения</div>
+    <div class="card-title">Параметры сравнения <span class="tt" data-tip="Ключевые параметры одного цикла до и после. Рост частоты с 2 до 4+ циклов в год достигается снижением стоимости цикла в 14,3×, а не наймом людей. Лаг сокращается параллельным запуском, а не ускорением самих шагов.">ⓘ</span></div>
     <div class="proc-compare">
       <div class="proc-card before">
         <div class="proc-card-title">Ручной</div>
@@ -491,7 +503,7 @@ footer {
 
   <!-- Hours bar chart -->
   <div class="card">
-    <div class="card-title">Трудозатраты по шагам, чел.-ч</div>
+    <div class="card-title">Трудозатраты по шагам, чел.-ч <span class="tt" data-tip="Активные часы работы команды по каждому из 15 шагов. Не включает ожидание ответов от внешних сторон. Наибольшая нагрузка в ручном процессе: производственное планирование (57 ч) и запрос КП поставщикам (29 ч).">ⓘ</span></div>
     <div class="chart-wrap h280">
       <canvas id="hoursChart"></canvas>
     </div>
@@ -505,6 +517,7 @@ footer {
   <span class="section-sub">рабочие дни · критический путь с учётом параллельных фаз</span>
 </div>
 <div class="card fade-in mb24" id="timelineCard">
+  <div class="card-title" style="margin-bottom:20px;">Критический путь: рабочие дни <span class="tt" data-tip="Диаграмма Ганта показывает критический путь по времени, а не суммарные трудозатраты. При параллельном старте в День 0 жёсткий минимум определяется ожиданием КП поставщиков (~12 дн.) и согласованием (~10 дн.).">ⓘ</span></div>
   <!-- Summary pills -->
   <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px;align-items:center;">
     <div style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.25);border-radius:10px;padding:12px 20px;display:flex;flex-direction:column;gap:4px;">
@@ -543,9 +556,12 @@ footer {
   <span class="section-sub">удельная стоимость с учётом вероятностей, руб.</span>
 </div>
 <div class="card fade-in mb24">
-  <div class="legend" style="margin-bottom:16px;">
-    <div class="legend-item"><div class="legend-dot" style="background:#ef4444"></div>Ручной процесс</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#10b981"></div>Процесс с ИИ-агентами</div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+    <div class="card-title" style="margin:0;">Стоимость каждого шага, ₽/цикл <span class="tt" data-tip="Удельная стоимость каждого из 15 шагов на один цикл актуализации. Максимальная экономия — производственное планирование (65 860 ₽), запрос КП поставщикам (32 280 ₽) и нормализация цен (30 510 ₽).">ⓘ</span></div>
+    <div class="legend" style="flex-wrap:nowrap;">
+      <div class="legend-item"><div class="legend-dot" style="background:#ef4444"></div>Ручной процесс</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#10b981"></div>Процесс с ИИ-агентами</div>
+    </div>
   </div>
   <div class="chart-wrap h420">
     <canvas id="stepsChart"></canvas>
@@ -560,7 +576,7 @@ footer {
 </div>
 <div class="grid-65 fade-in">
   <div class="card">
-    <div class="card-title">Выручка и ценовой риск по ключевым типам изделий</div>
+    <div class="card-title">Выручка и ценовой риск по ключевым типам изделий <span class="tt" data-tip="Ценовой риск = (Выручка ÷ 1,184 × 0,62) × 3,75% (4,5 мес. × 10%/год). Правая и левая оси в разных единицах: млн ₽ (риск) и млрд ₽ (выручка) — высоты столбцов не сопоставимы.">ⓘ</span></div>
     <div class="chart-wrap h380">
       <canvas id="productChart"></canvas>
     </div>
@@ -574,7 +590,7 @@ footer {
   </div>
 
   <div class="card">
-    <div class="card-title">Сценарии материализации риска</div>
+    <div class="card-title">Сценарии материализации риска <span class="tt" data-tip="Доля теоретического ценового риска (~3,3 млрд ₽), которая реально материализуется потерями. Остальное покрыто эскалационными оговорками в контрактах с РЖД. В расчёт ROI включён консервативный сценарий: 10%.">ⓘ</span></div>
     <div class="chart-wrap h320">
       <canvas id="riskChart"></canvas>
     </div>
@@ -607,13 +623,13 @@ footer {
 </div>
 <div class="grid-2 fade-in">
   <div class="card">
-    <div class="card-title">Структура годовых выгод, млн ₽</div>
+    <div class="card-title">Структура годовых выгод, млн ₽ <span class="tt" data-tip="Три источника выгоды: трудозатраты (гарантированный, но наименьший), защита маржи от ценового лага (главный) и снижение потерь от управленческих решений. Отрицательные столбцы — OPEX и амортизация CAPEX (÷5 лет).">ⓘ</span></div>
     <div class="chart-wrap h320">
       <canvas id="roiStackChart"></canvas>
     </div>
   </div>
   <div class="card">
-    <div class="card-title">Сравнение: вложения vs отдача</div>
+    <div class="card-title">Сравнение: вложения vs отдача <span class="tt" data-tip="Логарифмическая шкала отражает разрыв между затратами и выгодами. Затраты год 1: 34 млн; консервативная выгода: 413 млн (в 12×); базовый сценарий: 858 млн (в 25×). CAPEX окупается за ~25 рабочих дней.">ⓘ</span></div>
     <div class="chart-wrap h320">
       <canvas id="roiBarChart"></canvas>
     </div>
@@ -632,32 +648,32 @@ footer {
 <div class="insights fade-in">
   <div class="insight i1">
     <div class="insight-icon">⚡</div>
-    <div class="insight-title">Расчёт по запросу за 1–2 дня</div>
+    <div class="insight-title">Расчёт по запросу за 1–2 дня <span class="tt" data-tip="Внеплановый расчёт ранее требовал отложить плановый цикл — на него просто не было ресурса. С ИИ-агентом: параллельный запуск всех запросов, команда подключается только для проверки результата.">ⓘ</span></div>
     <div class="insight-text">Внеплановый цикл под конкретный тендер или при скачке цен на металл — без срыва основной работы команды. Ранее это было практически невозможно.</div>
   </div>
   <div class="insight i2">
     <div class="insight-icon">🎯</div>
-    <div class="insight-title">Точность коммерческих решений</div>
+    <div class="insight-title">Точность коммерческих решений <span class="tt" data-tip="За 4–6 месяцев лага при инфляции 10–20%/год себестоимость уходит на 3–7% ниже рынка. Один неверно оценённый контракт на 10 электровозов — ~80 млн убытков только на занижении себестоимости.">ⓘ</span></div>
     <div class="insight-text">Каждое КП и тендерное предложение опирается на актуальную себестоимость, а не на данные 4–6-месячной давности. Меньше убыточных контрактов и проигранных тендеров.</div>
   </div>
   <div class="insight i3">
     <div class="insight-icon">🔄</div>
-    <div class="insight-title">Воспроизводимость и независимость от людей</div>
+    <div class="insight-title">Воспроизводимость и независимость от людей <span class="tt" data-tip="При ручном процессе логика расчётов хранится в голове ключевых сотрудников. Агент фиксирует алгоритм в коде и хранит историю каждого расчёта — уход человека не создаёт риска для процесса.">ⓘ</span></div>
     <div class="insight-text">Логика процесса зафиксирована в агентах. Уход ключевого калькулятора больше не создаёт риска для цикла. История каждого расчёта сохраняется автоматически.</div>
   </div>
   <div class="insight i1">
     <div class="insight-icon">📊</div>
-    <div class="insight-title">Основа для BI и план-факт анализа</div>
+    <div class="insight-title">Основа для BI и план-факт анализа <span class="tt" data-tip="2 точки данных в год не позволяют строить тренды. 4+ циклов создают временной ряд для BI-аналитики, план-факт сравнения и прогнозирования изменений себестоимости в динамике.">ⓘ</span></div>
     <div class="insight-text">Ежеквартальная актуализация даёт базу для сравнения плановой и фактической себестоимости в динамике — недостижимо при ручном процессе.</div>
   </div>
   <div class="insight i2">
     <div class="insight-icon">🚀</div>
-    <div class="insight-title">Масштабирование без роста затрат</div>
+    <div class="insight-title">Масштабирование без роста затрат <span class="tt" data-tip="Добавление каждого нового типа изделия в периметр стоит 22 718 ₽ за цикл вместо 325 880 ₽. OPEX системы при этом не растёт — агент масштабируется горизонтально без дополнительного найма.">ⓘ</span></div>
     <div class="insight-text">Добавление новой модели в периметр расчёта стоит 22 718 ₽ за цикл — вместо 325 880 ₽. При расширении продуктовой линейки экономия кратно растёт.</div>
   </div>
   <div class="insight i3">
     <div class="insight-icon">🛡️</div>
-    <div class="insight-title">Снижение операционного риска</div>
+    <div class="insight-title">Снижение операционного риска <span class="tt" data-tip="ИИ-агент применяет единые правила нормализации, никогда не пропускает позиции и сохраняет полный аудит каждого расчёта. Ошибки из-за усталости, невнимательности или человеческого фактора исключены.">ⓘ</span></div>
     <div class="insight-text">Агент не пропускает позиции, не допускает арифметических ошибок, всегда применяет актуальные ставки — качество расчёта не зависит от загрузки команды.</div>
   </div>
 </div>
@@ -673,7 +689,7 @@ footer {
 
 <script>
 // ── CHART.JS DEFAULTS ──────────────────────────────────────────────
-Chart.defaults.color = '#94a3b8';
+Chart.defaults.color = '#cbd5e1';
 Chart.defaults.borderColor = 'rgba(255,255,255,0.06)';
 Chart.defaults.font.family = "'Inter', sans-serif";
 
@@ -683,7 +699,7 @@ const tooltip = {
   borderWidth:1,
   padding:12,
   titleColor:'#f1f5f9',
-  bodyColor:'#94a3b8',
+  bodyColor:'#cbd5e1',
   cornerRadius:10,
   displayColors:true,
   boxWidth:10, boxHeight:10, boxPadding:4,
@@ -770,7 +786,7 @@ new Chart(document.getElementById('donutChart'), {
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText('−93%', cx, cy-8);
-      ctx.fillStyle = '#94a3b8';
+      ctx.fillStyle = '#cbd5e1';
       ctx.font = '400 11px Inter';
       ctx.fillText('стоимости', cx, cy+12);
       ctx.restore();
@@ -795,7 +811,7 @@ new Chart(document.getElementById('hoursChart'), {
   options:{
     responsive:true, maintainAspectRatio:false,
     scales:{
-      x:{ ticks:{ font:{size:9}, maxRotation:45, color:'#64748b' }, grid:{display:false} },
+      x:{ ticks:{ font:{size:9}, maxRotation:45, color:'#cbd5e1' }, grid:{display:false} },
       y:{ ticks:{font:{size:10}}, grid:{color:'rgba(255,255,255,0.04)'} }
     },
     plugins:{ legend:{display:false}, tooltip:{...tooltip} },
@@ -838,7 +854,7 @@ new Chart(document.getElementById('stepsChart'), {
     responsive:true, maintainAspectRatio:false,
     scales:{
       x:{ ticks:{callback:v=>v>=1000?(v/1000).toFixed(0)+'к':v, font:{size:10}}, grid:{color:'rgba(255,255,255,0.04)'} },
-      y:{ ticks:{font:{size:11}, color:'#94a3b8'}, grid:{display:false} }
+      y:{ ticks:{font:{size:11}, color:'#cbd5e1'}, grid:{display:false} }
     },
     plugins:{
       legend:{
@@ -1081,7 +1097,7 @@ new Chart(document.getElementById('ganttChart'), {
             return map[v] ?? '';
           },
           font: { size: 11 },
-          color: '#64748b',
+          color: '#cbd5e1',
         },
         grid: { color: 'rgba(255,255,255,0.05)' },
       },
@@ -1098,7 +1114,7 @@ new Chart(document.getElementById('ganttChart'), {
           padding: 14,
           boxWidth: 12,
           boxHeight: 12,
-          color: '#94a3b8',
+          color: '#cbd5e1',
           generateLabels: (chart) => chart.data.datasets.map((ds, i) => ({
             text: ds.label,
             fillStyle: ds.backgroundColor,
@@ -1197,7 +1213,7 @@ new Chart(document.getElementById('productChart'), {
     responsive: true, maintainAspectRatio: false,
     scales: {
       x: {
-        ticks: { font:{size:10}, color:'#64748b', maxRotation:0 },
+        ticks: { font:{size:10}, color:'#cbd5e1', maxRotation:0 },
         grid: { display: false }
       },
       yRev: {
@@ -1277,7 +1293,7 @@ new Chart(document.getElementById('capexChart'), {
     plugins:{
       legend:{
         position:'right',
-        labels:{ font:{size:10}, boxWidth:10, padding:8, color:'#94a3b8',
+        labels:{ font:{size:10}, boxWidth:10, padding:8, color:'#cbd5e1',
           generateLabels:(chart)=>chart.data.labels.map((l,i)=>({
             text: l.split(' ').slice(0,2).join(' ') + '  ' + (chart.data.datasets[0].data[i]/1e6).toFixed(1)+'M',
             fillStyle: chart.data.datasets[0].backgroundColor[i],
@@ -1301,7 +1317,7 @@ new Chart(document.getElementById('capexChart'), {
       ctx.fillStyle='#f1f5f9'; ctx.font='700 16px Inter';
       ctx.textAlign='center'; ctx.textBaseline='middle';
       ctx.fillText('28 млн', cx, cy-8);
-      ctx.fillStyle='#94a3b8'; ctx.font='400 10px Inter';
+      ctx.fillStyle='#cbd5e1'; ctx.font='400 10px Inter';
       ctx.fillText('CAPEX', cx, cy+8);
       ctx.restore();
     }
@@ -1322,6 +1338,56 @@ if (capexSection) capexObs.observe(capexSection.closest('.card'));
 
 // ── PRODUCT BAR ANIMATION INIT ─────────────────────────────────────
 // Triggered by intersection observer above
+
+// ── TOOLTIP ENGINE (position:fixed — не клиппируется overflow:hidden) ──
+(function () {
+  const tip = document.createElement('div');
+  tip.style.cssText = [
+    'position:fixed', 'z-index:9999', 'width:280px', 'max-width:calc(100vw - 16px)',
+    'background:rgba(7,12,26,0.97)', 'border:1px solid rgba(99,179,237,0.25)',
+    'border-radius:10px', 'padding:12px 14px',
+    'font-size:12px', 'line-height:1.65', 'color:#cbd5e1',
+    'pointer-events:none', 'opacity:0',
+    'transition:opacity 0.15s ease',
+    'box-shadow:0 8px 32px rgba(0,0,0,0.65)',
+    "font-family:'Inter',sans-serif",
+    'text-transform:none', 'letter-spacing:0', 'font-weight:400',
+  ].join(';');
+  document.body.appendChild(tip);
+
+  function place(el) {
+    const r = el.getBoundingClientRect();
+    const w = 280, gap = 10;
+    let left = r.left + r.width / 2 - w / 2;
+    // Оцениваем высоту по длине текста (~40 символов на строку, 18px на строку + padding)
+    const lines = Math.ceil(tip.textContent.length / 40);
+    const estimatedH = lines * 18 + 24;
+    let top = r.top - estimatedH - gap;
+    // Горизонтальные ограничения
+    if (left < 8) left = 8;
+    if (left + w > window.innerWidth - 8) left = window.innerWidth - w - 8;
+    // Если выходит за верхний край — показываем снизу
+    if (top < 8) top = r.bottom + gap;
+    tip.style.left = left + 'px';
+    tip.style.top  = top  + 'px';
+  }
+
+  document.querySelectorAll('.tt').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      tip.textContent = el.dataset.tip;
+      tip.style.visibility = 'hidden';
+      tip.style.opacity = '1';
+      requestAnimationFrame(() => {
+        place(el);
+        tip.style.visibility = 'visible';
+      });
+    });
+    el.addEventListener('mouseleave', () => {
+      tip.style.opacity = '0';
+    });
+    el.addEventListener('mousemove', () => place(el));
+  });
+})();
 </script>
 </body>
 </html>
