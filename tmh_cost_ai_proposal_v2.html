@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIM × ТМХ — ИИ-платформа актуализации себестоимости</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+@page { size: A4; margin: 0; }
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: #cbd5e1;
+  display: flex;
+  justify-content: center;
+  padding: 24px;
+}
+
+.page {
+  width: 210mm;
+  height: 297mm;
+  background: #fff;
+  padding: 15mm 16mm 12mm;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+@media print {
+  body { background: #fff; padding: 0; }
+  .page { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+.spacer { flex: 1; }
+
+/* ────────── HEADER ────────── */
+.header {
+  background: #0f172a;
+  border-radius: 10px;
+  padding: 16px 22px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.header .aim { height: 34px; }
+.header .sep { width: 1px; height: 32px; background: rgba(255,255,255,.12); }
+.header .center { flex: 1; }
+.header h1 {
+  font-size: 16px; font-weight: 800; color: #f1f5f9;
+  letter-spacing: -.3px; line-height: 1.25;
+}
+.header .sub { font-size: 9.5px; color: #64748b; margin-top: 3px; }
+.header .tmh { height: 32px; filter: brightness(0) invert(1); opacity: .8; }
+
+/* ────────── VALUE STATEMENT ────────── */
+.value-stmt {
+  background: #eff6ff;
+  border-left: 4px solid #3b82f6;
+  border-radius: 0 8px 8px 0;
+  padding: 13px 18px;
+  font-size: 11px; line-height: 1.7; color: #1e293b;
+  margin-bottom: 16px;
+}
+.value-stmt b { color: #1e40af; }
+
+/* ────────── OUTCOME KPI CARDS ────────── */
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.kpi {
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 15px 16px;
+  background: #f8fafc;
+  position: relative;
+  overflow: hidden;
+}
+.kpi::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; right: 0; height: 3px;
+  border-radius: 10px 10px 0 0;
+}
+.k1::before { background: #0ea5e9; }
+.k2::before { background: #10b981; }
+.k3::before { background: #6366f1; }
+
+.kpi-label {
+  font-size: 8px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .6px; color: #64748b; margin-bottom: 6px;
+}
+.kpi-value {
+  font-size: 30px; font-weight: 900; line-height: 1; letter-spacing: -.5px;
+}
+.k1 .kpi-value { color: #0284c7; }
+.k2 .kpi-value { color: #059669; }
+.k3 .kpi-value { color: #4f46e5; }
+.kpi-note {
+  font-size: 9px; color: #64748b; margin-top: 7px; line-height: 1.5;
+}
+
+/* ────────── BENEFIT CARDS ────────── */
+.benefits {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.benefit {
+  border-radius: 10px;
+  padding: 16px 18px;
+  position: relative;
+  overflow: hidden;
+}
+.benefit::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; right: 0; height: 3.5px;
+}
+.ben-a { background: #f0fdf4; border: 1px solid #bbf7d0; }
+.ben-a::before { background: #10b981; }
+.ben-b { background: #eff6ff; border: 1px solid #bfdbfe; }
+.ben-b::before { background: #3b82f6; }
+
+.benefit h3 {
+  font-size: 12px; font-weight: 700; line-height: 1.3; margin-bottom: 8px;
+}
+.ben-a h3 { color: #065f46; }
+.ben-b h3 { color: #1e40af; }
+
+.benefit p { font-size: 10px; color: #475569; line-height: 1.7; }
+.ben-a em { font-style: normal; color: #059669; font-weight: 600; }
+.ben-b em { font-style: normal; color: #2563eb; font-weight: 600; }
+
+/* ────────── OPERATIONS ────────── */
+.ops {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 12px; margin-bottom: 16px;
+}
+.op-card {
+  border-radius: 10px;
+  padding: 16px 18px;
+  background: #fafafa;
+  border: 1px solid #e5e5e5;
+  position: relative;
+  overflow: hidden;
+}
+.op-card::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; right: 0; height: 3px;
+  border-radius: 10px 10px 0 0;
+  background: #a855f7;
+}
+.op-label {
+  font-size: 8px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .6px; color: #64748b; margin-bottom: 6px;
+}
+.op-value {
+  font-size: 30px; font-weight: 900; line-height: 1; letter-spacing: -.5px;
+  color: #7c3aed;
+}
+.op-note {
+  font-size: 9.5px; color: #475569; margin-top: 8px; line-height: 1.55;
+}
+
+/* ────────── TWO COLUMNS ────────── */
+.cols {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 12px; margin-bottom: 16px;
+}
+.col-box {
+  border: 1px solid #e2e8f0; border-radius: 10px;
+  padding: 15px 16px; background: #f8fafc;
+}
+.col-hd {
+  font-size: 8.5px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .6px; color: #64748b;
+  margin-bottom: 11px; padding-bottom: 9px;
+  border-bottom: 1px solid #e2e8f0;
+}
+.param-row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 7px 0; border-bottom: 1px solid #f1f5f9;
+}
+.param-row:last-child { border-bottom: none; }
+.param-l { font-size: 10px; color: #475569; }
+.param-v { font-size: 12px; font-weight: 700; color: #0f172a; white-space: nowrap; }
+
+/* ────────── VISION CARD ────────── */
+.vision {
+  border-radius: 10px;
+  padding: 20px 22px;
+  background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.vision-label {
+  font-size: 8px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .7px; color: rgba(255,255,255,.7); margin-bottom: 10px;
+}
+.vision-headline {
+  font-size: 18px; font-weight: 900; color: #fff;
+  line-height: 1.3; letter-spacing: -.3px; margin-bottom: 12px;
+}
+.vision-text {
+  font-size: 10px; color: rgba(255,255,255,.9); line-height: 1.7;
+}
+.vision-text strong { color: #fff; font-weight: 700; }
+
+/* ────────── BOTTOM CARD ────────── */
+.bottom-card {
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  border-radius: 10px;
+  padding: 18px 24px;
+}
+.bottom-card p {
+  font-size: 12px; color: #cbd5e1; line-height: 1.8;
+}
+.bottom-card strong { color: #f1f5f9; }
+.bottom-card .green { color: #34d399; font-weight: 800; }
+.bottom-card .next {
+  display: block; margin-top: 10px; padding-top: 10px;
+  border-top: 1px solid rgba(255,255,255,.08);
+  font-size: 10px; color: #94a3b8;
+}
+.bottom-card .next b { color: #e2e8f0; font-weight: 600; }
+
+/* ────────── FOOTER ────────── */
+.footer {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 9px; border-top: 1px solid #e2e8f0;
+  font-size: 7.5px; color: #94a3b8;
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <img src="logo_dark.png" alt="AIM Integrations" class="aim">
+    <div class="sep"></div>
+    <div class="center">
+      <h1>ИИ-платформа актуализации себестоимости</h1>
+      <p class="sub">Трансмашхолдинг · 2026</p>
+    </div>
+    <img src="Transmashholding_Logo.svg" alt="Трансмашхолдинг" class="tmh">
+  </div>
+
+  <!-- VALUE STATEMENT -->
+  <div class="value-stmt">
+    Платформа ИИ-агентов сокращает цикл актуализации себестоимости <b>с месяцев до недель</b> и устраняет ценовой дрифт. Коммерческие и тендерные решения принимаются на актуальных данных — <b>маржа защищена, цена конкурентоспособна</b>.
+  </div>
+
+  <!-- OUTCOME KPI CARDS -->
+  <div class="kpis">
+    <div class="kpi k1">
+      <div class="kpi-label">Цикл актуализации</div>
+      <div class="kpi-value" style="font-size:25px">6 мес &#x2192; 2 нед</div>
+      <div class="kpi-note">Себестоимость актуальна постоянно, а не раз в полгода</div>
+    </div>
+    <div class="kpi k2">
+      <div class="kpi-label">Сохранённая стоимость</div>
+      <div class="kpi-value" style="font-size:22px">до 100 млн &#x20bd;</div>
+      <div class="kpi-note">защищённой маржи и выручки на каждый 1 млрд &#x20bd; контрактов</div>
+    </div>
+    <div class="kpi k3">
+      <div class="kpi-label">Порог окупаемости</div>
+      <div class="kpi-value" style="font-size:25px">&lt; 0,2%</div>
+      <div class="kpi-note">от выручки группы — при влиянии на этот объём контрактов проект уже окупается</div>
+    </div>
+  </div>
+
+  <!-- BENEFIT CARDS -->
+  <div class="benefits">
+    <div class="benefit ben-a">
+      <h3>Защита маржи по контрактам</h3>
+      <p>
+        Каждый контракт формируется на основе актуальной себестоимости — не данных полугодовой давности. Маржа каждого проекта соответствует плану.<br>
+        <em>Скрытые убытки из-за расхождения расчётной и реальной себестоимости исключены.</em>
+      </p>
+    </div>
+    <div class="benefit ben-b">
+      <h3>Конкурентоспособная цена в тендерах</h3>
+      <p>
+        Когда точная себестоимость неизвестна, цену формируют с запасом — «чтобы не уйти в минус». Завышенная оценка делает предложение неконкурентоспособным. Контракт уходит не тому, у кого лучше продукт, — а тому, у кого точнее расчёт.<br>
+        <em>Один не потерянный по этой причине контракт — от 1 до 10 млрд &#x20bd; выручки.</em>
+      </p>
+    </div>
+  </div>
+
+  <!-- OPERATIONS -->
+  <div class="ops">
+    <div class="op-card">
+      <div class="op-label">Сокращение прямых затрат на процесс</div>
+      <div class="op-value">&minus;90%</div>
+      <div class="op-note">Трудозатраты проектно-экономического отдела на цикл актуализации снижаются более чем в 10 раз</div>
+    </div>
+    <div class="op-card">
+      <div class="op-label">Задержка обработки данных</div>
+      <div class="op-value">0 сек</div>
+      <div class="op-note">Данные от контрагента обрабатываются в момент получения. Если информация неполная — агент сразу запрашивает недостающее, не дожидаясь, пока специалист откроет письмо</div>
+    </div>
+  </div>
+
+  <!-- TWO COLUMNS -->
+  <div class="cols">
+    <div class="col-box">
+      <div class="col-hd">Параметры проекта</div>
+      <div class="param-row">
+        <span class="param-l">Разработка и внедрение</span>
+        <span class="param-v">~40 млн &#x20bd;</span>
+      </div>
+      <div class="param-row">
+        <span class="param-l">Серверное оборудование</span>
+        <span class="param-v">6–8 млн &#x20bd;</span>
+      </div>
+      <div class="param-row">
+        <span class="param-l">Эксплуатация (в год)</span>
+        <span class="param-v">~8 млн &#x20bd;</span>
+      </div>
+      <div class="param-row">
+        <span class="param-l">Команда ТМХ</span>
+        <span class="param-v" style="font-size:9.5px;font-weight:600">2–3 эксперта · доступ к данным</span>
+      </div>
+    </div>
+    <div class="vision">
+      <div class="vision-label">Развитие платформы</div>
+      <div class="vision-headline">От расчёта —<br>до запуска производства</div>
+      <div class="vision-text">
+        Драфт плана проекта, заказы на закупку сырья, задачи для производства — <strong>формируются автоматически</strong>. Готовое коммерческое предложение с актуальной ценой, спецификациями и сроками — <strong>собирается за часы</strong>. Участие человека сводится к согласованию финального решения.
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM CARD -->
+  <div class="bottom-card">
+    <p>
+      Стоимость проекта — <strong>менее 60 млн &#x20bd;</strong>. Типичный контракт ТМХ на поставку подвижного состава — <strong>от 1 до 10 млрд &#x20bd;</strong>.
+      <span class="green">Один корректно рассчитанный контракт покрывает все затраты на внедрение и годы эксплуатации.</span>
+    </p>
+  </div>
+
+  <div class="spacer"></div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <span>AIM Integrations · Искусственный интеллект. <span style="color:#4f46e5">Настоящие результаты</span></span>
+    <span>Оценки приблизительные · основаны на отраслевых данных · подлежат уточнению · 2026</span>
+  </div>
+
+</div>
+</body>
+</html>
